@@ -1,0 +1,46 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+//функция, которая возвращает вектор c указанным внутри размером случайными числами
+vector<int> RandomFillVector(const int size)
+{
+    vector<int> temp;
+    for (int i = 0; i < size; ++i) {
+        int random = 1 + rand() % 10;
+        temp.push_back(random);
+    }
+    return temp;
+}
+
+void ShowVector(vector<int> temp)
+{
+    for (int element : temp) {
+        cout << element << "\t";
+    }
+    cout << endl;
+}
+
+int main()
+{
+    cout << "Array with random numbers" << endl;
+    //подряд 10 случайных чисел
+    vector<int> temp = RandomFillVector(10);
+    ShowVector(temp);
+
+    cout << "Array after sorting" << endl;
+    //сортируем
+    sort(temp.begin(), temp.end());
+    ShowVector(temp);
+
+    //показывает, сколько значений у нас осталось (а пустота заменяется рандомными числами)
+    auto iter = unique(temp.begin(), temp.end());
+    ShowVector(temp);
+
+    cout << "Array without double numbers" << endl;
+    //удаляем с указателя на уникальный элемент до самого конца
+    temp.erase(iter, temp.end());
+    ShowVector(temp);
+}
